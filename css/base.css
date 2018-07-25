@@ -7,6 +7,9 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 html{
   font-size:100px;
 }
+body{
+  color:#333;
+}
 
 ul, ol {
   list-style-type: none;
@@ -49,14 +52,13 @@ input:-webkit-autofill {
 
 [v-cloak] { display: none }
 
-
 @font-face {
   font-family: 'iconfont';  /* project id 758869 */
-  src: url('http://at.alicdn.com/t/font_758869_uebva8rqp.eot');
-  src: url('http://at.alicdn.com/t/font_758869_uebva8rqp.eot?#iefix') format('embedded-opentype'),
-  url('http://at.alicdn.com/t/font_758869_uebva8rqp.woff') format('woff'),
-  url('http://at.alicdn.com/t/font_758869_uebva8rqp.ttf') format('truetype'),
-  url('http://at.alicdn.com/t/font_758869_uebva8rqp.svg#iconfont') format('svg');
+  src: url('http://at.alicdn.com/t/font_758869_z83ogh35vas.eot');
+  src: url('http://at.alicdn.com/t/font_758869_z83ogh35vas.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_758869_z83ogh35vas.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_758869_z83ogh35vas.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_758869_z83ogh35vas.svg#iconfont') format('svg');
 }
 
 .iconfont{

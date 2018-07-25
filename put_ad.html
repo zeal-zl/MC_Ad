@@ -91,9 +91,14 @@
   <!-- 详情模板 -->
   <template id="descWrap">
     <div class="put_tem_wrap">
-      <div class="del_put_info" @click="delTem">x</div>
+
+      <div class="del_put_info" @click="delTem">
+        <i class="iconfont del_icon">&#xe6e2;</i>
+      </div>
+
       <div class="arrow arrow_up" v-if="index!==0" @click="moveTem('up',index)"></div>
       <div class="arrow arrow_down" v-if="index!==len" @click="moveTem('down',index)"></div>
+
       <div class="put_ad_tem">
         <div class="put_tem_img" @click="editTem('img',info.type)">
           <img :src="info.type | filterSrc(info)" alt="">
