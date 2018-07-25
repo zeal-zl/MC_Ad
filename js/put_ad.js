@@ -218,5 +218,6 @@ new Vue({
         this.uploadQiniu(file)
       }
     }
+   
   }
 })

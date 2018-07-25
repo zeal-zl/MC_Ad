@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>发布广告</title>
   <script src="./js/rem.js"></script>
@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <div id="app" v-cloak>
+  <div ref="wrap" id="app" v-cloak>
     <!-- 隐藏域 -->
     <input ref="hiddenInput" class="hiddenInput" type="file">
 
@@ -78,12 +78,8 @@
   <!-- 添加组件 -->
   <template id="addTem">
     <div class="add_items_wrap">
-      <div class="add_item_icon">
-        <input ref="temIpt" style="border:1px solid #000;width:20px;opacity: 0;color:#fff;" type="text" @focus="showList=!showList"
-          @blur="showList=false">
-        <i class="iconfont" style="color:#999;">&#xe604;</i>
-      </div>
-      <div class="add_lists" v-if="showList">
+      <i class="iconfont add_item_icon" @click="showList=!showList">&#xe604;</i>
+      <div class="add_lists" v-if="curTemIndex===index&&showList">
         <div class="add_item" @click="addTem('text')">文字</div>
         <div class="add_item" @click="addTem('img')">图片 </div>
         <div class="add_item" @click="addTem('video')">视屏 </div>
