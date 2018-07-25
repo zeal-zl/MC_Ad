@@ -7,9 +7,6 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 html{
   font-size:100px;
 }
-body{
-  font-size: .875rem;
-}
 
 ul, ol {
   list-style-type: none;
@@ -45,6 +42,10 @@ input:-webkit-autofill {
 #app{
   height:100vh;
 }
+
+   .hiddenInput{
+     display: none;
+   }
 
 [v-cloak] { display: none }
 

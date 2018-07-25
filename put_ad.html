@@ -14,23 +14,31 @@
 
 <body>
   <div id="app" v-cloak>
+    <!-- 隐藏域 -->
     <input ref="hiddenInput" class="hiddenInput" type="file">
 
+    <!-- 主体 -->
     <div class="put_ad_wrap">
       <!-- 标题 -->
       <div class="put_ad_head">
+
+        <div class="put_ad_title" @click="isSetTitle=true">{{adTitle||'点击设置标题'}}</div>
+
         <div class="put_ad_cover">
           <img class="put_cover" :src="cover" alt="">
         </div>
-
-        <div class="put_ad_title" @click="isSetTitle=true">{{adTitle||'点击设置标题'}}</div>
 
         <div class="put_edit_cover">
           <div class="edit_cover_btn" @click="editCover">更换封面</div>
         </div>
       </div>
 
-      <!-- 内容 -->
+      <!-- 广告预算 -->
+      <div class="put_ad_budget">
+        广告预算内容
+      </div>
+
+      <!-- 广告详情 -->
       <div class="put_desc_wrap">
         <add-tem :cur-tem-index="curTemIndex" :index="-1" @click.native="curTemIndex = -1" @change-add="addDescType"></add-tem>
         <div v-for="(item,index) in infoList" :key="index" @click="curTemIndex = index">
@@ -70,8 +78,12 @@
   <!-- 添加组件 -->
   <template id="addTem">
     <div class="add_items_wrap">
-      <i class="iconfont" style="color:#999;">&#xe604;</i>
-      <div class="add_lists" v-if="curTemIndex === index">
+      <div class="add_item_icon">
+        <input ref="temIpt" style="border:1px solid #000;width:20px;opacity: 0;color:#fff;" type="text" @focus="showList=!showList"
+          @blur="showList=false">
+        <i class="iconfont" style="color:#999;">&#xe604;</i>
+      </div>
+      <div class="add_lists" v-if="showList">
         <div class="add_item" @click="addTem('text')">文字</div>
         <div class="add_item" @click="addTem('img')">图片 </div>
         <div class="add_item" @click="addTem('video')">视屏 </div>
