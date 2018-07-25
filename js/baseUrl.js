@@ -1,0 +1,1 @@
+var BASE_URL = 'http://www.renshaopeng.com/api/'

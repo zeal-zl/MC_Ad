@@ -1,0 +1,67 @@
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+  margin: 0;
+  padding: 0;  
+}
+
+html{
+  font-size:100px;
+}
+body{
+  font-size: .875rem;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: #495060;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  border: none;
+  vertical-align: top;
+}
+
+textarea,input {
+  border: none;
+}
+
+textarea:focus,input:focus {
+  outline: none;
+}
+
+    
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+#app{
+  height:100vh;
+}
+
+[v-cloak] { display: none }
+
+
+@font-face {
+  font-family: 'iconfont';  /* project id 758869 */
+  src: url('http://at.alicdn.com/t/font_758869_uebva8rqp.eot');
+  src: url('http://at.alicdn.com/t/font_758869_uebva8rqp.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_758869_uebva8rqp.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_758869_uebva8rqp.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_758869_uebva8rqp.svg#iconfont') format('svg');
+}
+
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+  }

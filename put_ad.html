@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>发布广告</title>
+  <script src="./js/rem.js"></script>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/put_ad.css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <input ref="hiddenInput" class="hiddenInput" type="file">
+
+    <div class="put_ad_wrap">
+      <!-- 标题 -->
+      <div class="put_ad_head">
+        <div class="put_ad_cover">
+          <img class="put_cover" :src="cover" alt="">
+        </div>
+
+        <div class="put_ad_title" @click="isSetTitle=true">{{adTitle||'点击设置标题'}}</div>
+
+        <div class="put_edit_cover">
+          <div class="edit_cover_btn" @click="editCover">更换封面</div>
+        </div>
+      </div>
+
+      <!-- 内容 -->
+      <div class="put_desc_wrap">
+        <add-tem :cur-tem-index="curTemIndex" :index="-1" @click.native="curTemIndex = -1" @change-add="addDescType"></add-tem>
+        <div v-for="(item,index) in infoList" :key="index" @click="curTemIndex = index">
+          <desc-wrap :info="item" :index="index" :len="infoList.length-1" @change-add-desc="addDescType" @del-desc-tem="delDescTem"
+            @move-tem="moveTem"></desc-wrap>
+          <add-tem :cur-tem-index="curTemIndex" :index="index" @change-add="addDescType"></add-tem>
+        </div>
+      </div>
+
+      <!-- 发布 -->
+      <div class="put_ad_next" @click="nextBtn"> 下一步 </div>
+    </div>
+
+
+    <!-- 设置文章标题 -->
+    <add-title :is-set-title.sync="isSetTitle" :ad-title="adTitle" @change-title="adTitle = $event"></add-title>
+
+    <!-- 设置文章文案 -->
+    <add-text :is-set-text.sync="isSetText" :cur-ad-text="curAdText" @change-text="addTextInfo"></add-text>
+
+    <!-- 设置链接 -->
+    <add-link :is-set-link.sync="isSetLink" :cur-link-url="curLinkUrl" :cur-link-text="curLinkText" @change-link="addLinkTem"></add-link>
+  </div>
+
+  <!-- 组件 -->
+  <!-- 标题 -->
+  <template id="addTitle">
+    <transition name="fade">
+      <div class="add_text_wrap" v-if="isSetTitleMd">
+        <textarea class="add_text_info" v-model="title" maxlength="50" placeholder="请输入文章标题" autofocus></textarea>
+        <div style="padding:10px 0 0 30px;color:#999;">{{title.length}}/50</div>
+        <div class="add_text_btn" @click="confirmBtn">完成</div>
+      </div>
+    </transition>
+  </template>
+
+  <!-- 添加组件 -->
+  <template id="addTem">
+    <div class="add_items_wrap">
+      <i class="iconfont" style="color:#999;">&#xe604;</i>
+      <div class="add_lists" v-if="curTemIndex === index">
+        <div class="add_item" @click="addTem('text')">文字</div>
+        <div class="add_item" @click="addTem('img')">图片 </div>
+        <div class="add_item" @click="addTem('video')">视屏 </div>
+        <div class="add_item" @click="addTem('link')">链接</div>
+      </div>
+    </div>
+  </template>
+
+  <!-- 详情模板 -->
+  <template id="descWrap">
+    <div class="put_tem_wrap">
+      <div class="del_put_info" @click="delTem">x</div>
+      <div class="arrow arrow_up" v-if="index!==0" @click="moveTem('up',index)"></div>
+      <div class="arrow arrow_down" v-if="index!==len" @click="moveTem('down',index)"></div>
+      <div class="put_ad_tem">
+        <div class="put_tem_img" @click="editTem('img',info.type)">
+          <img :src="info.type | filterSrc(info)" alt="">
+          <i class="iconfont type_video" v-if="info.type==='video'">&#xe647;</i>
+        </div>
+        <div class="put_tem_text" @click="editTem('link')" v-if="info.type==='link'">
+          <i class="iconfont" style="margin-right:10px;">&#xe6c8;</i>{{info.content||'点击添加链接'}}</div>
+        <div class="put_tem_text" @click="editTem('text')" v-else v-html="info.content"></div>
+      </div>
+    </div>
+  </template>
+
+  <!-- 文案 -->
+  <template id="addText">
+    <transition name="fade">
+      <div class="add_text_wrap" v-if="isSetTextMd">
+        <vue-html5-editor :content="content" :height="300" @change="updateData" ref="editor"></vue-html5-editor>
+        <!-- <textarea class="add_text_info" v-model="text" maxlength="5000" placeholder="请输入文章内容"></textarea> -->
+        <div style="padding:10px 0 0 30px;color:#999;">{{content.length}}/5000</div>
+        <div class="add_text_btn" @click="confirmBtn">完成</div>
+      </div>
+    </transition>
+  </template>
+
+  <!-- 链接 -->
+  <template id="addLink">
+    <transition name="fade">
+      <div class="add_text_wrap" v-if="isSetLinkMd">
+        <div class="add_link">
+          <div class="add_link_item">
+            <div class="link_title">链接地址</div>
+            <div class="link_input">
+              <input type="text" v-model="linkUrl" placeholder="请输入需要跳转的网址">
+            </div>
+          </div>
+          <div class="add_link_item">
+            <div class="link_title">链接描述</div>
+            <div class="link_input">
+              <input type="text" v-model="linkText" placeholder="请输入链接的文字描述">
+            </div>
+          </div>
+
+          <div class="link_btn_wrap">
+            <div class="link_btn btn_cancel" @click="isSetLinkMd = false">取消</div>
+            <div class="link_btn" @click="confirmBtn">添加</div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./js/vue-html5-editor.js"></script>
+<script src="./js/components.js"></script>
+<script src="./js/put_ad.js"></script>
+
+</html>
